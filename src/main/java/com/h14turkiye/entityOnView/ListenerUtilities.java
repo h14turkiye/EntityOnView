@@ -3,9 +3,11 @@ package com.h14turkiye.entityOnView;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -37,9 +39,9 @@ public class ListenerUtilities {
 			final Set<Material> transparentBlocks, final int yDistanceLimit, final boolean requireLineOfSight) {
 		final World world = loc.getWorld();
 
-		List<Player> playersInRange = world.getPlayers().stream()
-				.filter(p -> Math.abs(p.getLocation().getY() - loc.getY()) < yDistanceLimit).toList();
-
+		Set<Player> playersInRange = world.getPlayers().stream()
+				.filter(p -> Math.abs(p.getLocation().getY() - loc.getY()) < yDistanceLimit).collect(Collectors.toSet());
+		
 		for (final Player player : playersInRange) {
 			final double distanceSquared = player.getLocation().distanceSquared(loc);
 			if ((transparentBlocks == null || transparentBlocks.isEmpty()) && !requireLineOfSight
@@ -47,9 +49,8 @@ public class ListenerUtilities {
 				return player; // Return immediately if within 28 blocks
 			}
 		}
-
-		playersInRange = playersInRange.stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared)
-				.sorted(Comparator.comparingDouble(p -> p.getLocation().distanceSquared(loc))).limit(8).toList();
+		playersInRange = new LinkedHashSet<>(playersInRange.stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared)
+				.sorted(Comparator.comparingDouble(p -> p.getLocation().distanceSquared(loc))).limit(8).toList());
 
 		final AtomicReference<Player> closestPlayer = new AtomicReference<>(null);
 
