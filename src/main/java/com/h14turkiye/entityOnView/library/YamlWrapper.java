@@ -15,8 +15,9 @@ public class YamlWrapper {
 	protected File file, path;
 	protected String name;
 
-	public YamlWrapper(JavaPlugin instance, File path, String name, boolean createIfNotExist, boolean resource) {
-		this.plugin = instance;
+	public YamlWrapper(final JavaPlugin instance, final File path, final String name, final boolean createIfNotExist,
+			final boolean resource) {
+		plugin = instance;
 		this.path = path;
 		this.name = name + ".yml";
 		this.createIfNotExist = createIfNotExist;
@@ -24,19 +25,21 @@ public class YamlWrapper {
 		create();
 	}
 
-	public YamlWrapper(JavaPlugin instance, String path, String name, boolean createIfNotExist, boolean resource) {
+	public YamlWrapper(final JavaPlugin instance, final String path, final String name, final boolean createIfNotExist,
+			final boolean resource) {
 		this(instance, new File(path), name, createIfNotExist, resource);
 	}
 
 	public FileConfiguration getConfig() {
-		if(config == null) reloadConfig();
+		if (config == null)
+			reloadConfig();
 		return config;
 	}
 
 	public void save() {
 		try {
 			config.save(file);
-		} catch (Exception exc) {
+		} catch (final Exception exc) {
 			exc.printStackTrace();
 		}
 	}
@@ -69,7 +72,7 @@ public class YamlWrapper {
 		} else {
 			try {
 				file.createNewFile();
-			} catch (Exception exc) {
+			} catch (final Exception exc) {
 				exc.printStackTrace();
 			}
 		}

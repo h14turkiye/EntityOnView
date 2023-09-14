@@ -8,12 +8,12 @@
   <artifactId>EntityOnView</artifactId>
   <version>0.1.2-SNAPSHOT</version>
 
-  <name>Queue</name>
+  <name>EntityOnView</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <repositories>
@@ -51,9 +51,9 @@
             <scope>provided</scope>
         </dependency>
     <dependency>
-    <groupId>io.papermc.paper</groupId>
-    <artifactId>paper-api</artifactId>
-    <version>1.19-R0.1-SNAPSHOT</version>
+    <groupId>dev.folia</groupId>
+    <artifactId>folia-api</artifactId>
+    <version>1.20.1-R0.1-SNAPSHOT</version>
     <scope>provided</scope>
 </dependency>
   </dependencies>

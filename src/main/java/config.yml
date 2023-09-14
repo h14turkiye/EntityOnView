@@ -2,7 +2,10 @@
 debug: false
 
 # This sets the radius for checking players around the spawn location. The maximum value for this parameter is 128.
-radius: 80
+radius: 64
+yDistanceLimit: 20
+
+inSight: true
 
 # Determines whether to use Paper's preCreatureSpawnEvent. It is not recommended to use this option in conjunction with transparency enabled if you have a large player base (more than 12 players).
 usePaperPreCreatureSpawnEvent: false
@@ -11,11 +14,11 @@ usePaperPreCreatureSpawnEvent: false
 cancelSpawn:
   - ZOMBIE
 
-# Determines whether to use block transparency to filter out non-visible entities. HEAVY.
-transparency:
+# Determines whether to use blocks in sight to filter out non-visible entities. HEAVY.
+raytracing:
   enabled: true
-  # List of transparent blocks that can be considered for entity visibility checks. See https://minecraft.fandom.com/wiki/Opacity for more information.
-  transparentBlocks:
+  # List of transparent materials that can be considered for entity visibility checks. See https://minecraft.fandom.com/wiki/Opacity for more information.
+  ignoreBlocks:
     - AIR
     - CAVE_AIR
     - VOID_AIR

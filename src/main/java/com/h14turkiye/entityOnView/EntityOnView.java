@@ -7,20 +7,21 @@ import com.h14turkiye.entityOnView.library.YamlWrapper;
 import com.h14turkiye.entityOnView.listener.CreatureSpawnListener;
 import com.h14turkiye.entityOnView.listener.PreCreatureSpawnListener;
 
-public class EntityOnView extends JavaPlugin{
+public class EntityOnView extends JavaPlugin {
 	private FileConfiguration config;
 
 	@Override
 	public void onEnable() {
-		YamlWrapper yamlWrapper = new YamlWrapper(this, getDataFolder(), "config", true, true);    
+		final YamlWrapper yamlWrapper = new YamlWrapper(this, getDataFolder(), "config", true, true);
 		config = yamlWrapper.getConfig();
-		
-		if(config.getBoolean("usePaperPreCreatureSpawnEvent"))
-			getServer().getPluginManager().registerEvents(new PreCreatureSpawnListener(this), this);
+		new Config(config);
+
+		if (Config.usePaperPreCreatureSpawnEvent)
+			getServer().getPluginManager().registerEvents(new PreCreatureSpawnListener(), this);
 		else
-			getServer().getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
+			getServer().getPluginManager().registerEvents(new CreatureSpawnListener(), this);
 	}
-	
+
 	@Override
 	public FileConfiguration getConfig() {
 		return config;
