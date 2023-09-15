@@ -1,7 +1,11 @@
 name: EntityOnView
 description: This plugin restricts where an entity can spawn. Only entities that can be seen by player will spawn.
-version: 0.1.2
+version: 0.1.3
 main: com.h14turkiye.entityOnView.EntityOnView
 author: h14turkiye
 api-version: 1.13
 folia-supported: true
+commands:
+  entityonview:
+    usage: /<command>
+    description: Allows trackin

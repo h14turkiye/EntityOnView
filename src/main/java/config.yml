@@ -1,6 +1,3 @@
-# Enable debug logging.
-debug: false
-
 # This sets the radius for checking players around the spawn location. The maximum value for this parameter is 128.
 radius: 64
 yDistanceLimit: 20
