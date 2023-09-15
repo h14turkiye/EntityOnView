@@ -19,6 +19,7 @@ public class Config {
 	public static Set<EntityType> cancelSpawn = new HashSet<>();
 	public static Set<Material> transparentBlocks = new HashSet<>();
 	public static boolean usePaperPreCreatureSpawnEvent;
+	public static int traceClosestPlayerLimit;
 
 	public Config(final FileConfiguration config) {
 		debug = config.getBoolean("debug");
@@ -26,6 +27,7 @@ public class Config {
 		useTransparencyCheck = config.getBoolean("raytracing.enabled");
 		yDistanceLimit = config.getInt("yDistanceLimit");
 		radius = config.getInt("radius");
+		traceClosestPlayerLimit = config.getInt("traceClosestPlayerLimit");
 		radius = radius * radius;
 		usePaperPreCreatureSpawnEvent = config.getBoolean("usePaperPreCreatureSpawnEvent");
 

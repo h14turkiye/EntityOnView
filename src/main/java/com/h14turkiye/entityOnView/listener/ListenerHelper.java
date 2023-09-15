@@ -14,7 +14,7 @@ public class ListenerHelper {
 		if (Config.cancelSpawn.contains(type)) {
 			Player nearestQualifiedPlayer;
 			nearestQualifiedPlayer = ListenerUtilities.getClosestTracedPlayer(location, Config.radius,
-					Config.transparentBlocks, Config.yDistanceLimit, Config.inSight);
+					Config.transparentBlocks, Config.yDistanceLimit, Config.inSight, Config.traceClosestPlayerLimit);
 
 			if (nearestQualifiedPlayer == null) {
 				if (Config.debug)

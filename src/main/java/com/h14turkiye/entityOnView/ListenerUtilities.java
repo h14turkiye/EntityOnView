@@ -36,7 +36,7 @@ public class ListenerUtilities {
 	 * @return The closest qualified {@link Player}, or {@code null}
 	 */
 	public static Player getClosestTracedPlayer(final Location loc, final int maxDistanceSquared,
-			final Set<Material> transparentBlocks, final int yDistanceLimit, final boolean requireLineOfSight) {
+			final Set<Material> transparentBlocks, final int yDistanceLimit, final boolean requireLineOfSight, final int traceClosestPlayerLimit) {
 		final World world = loc.getWorld();
 
 		Set<Player> playersInRange = world.getPlayers().stream()
@@ -50,7 +50,7 @@ public class ListenerUtilities {
 			}
 		}
 		playersInRange = new LinkedHashSet<>(playersInRange.stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared)
-				.sorted(Comparator.comparingDouble(p -> p.getLocation().distanceSquared(loc))).limit(8).toList());
+				.sorted(Comparator.comparingDouble(p -> p.getLocation().distanceSquared(loc))).limit(traceClosestPlayerLimit).toList());
 
 		final AtomicReference<Player> closestPlayer = new AtomicReference<>(null);
 
