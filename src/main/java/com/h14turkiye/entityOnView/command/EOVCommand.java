@@ -17,29 +17,25 @@ import com.h14turkiye.entityOnView.object.ViewTrackPoint.Status;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 
-public class EOVCommand
-implements CommandExecutor, TabCompleter
-{
+public class EOVCommand implements CommandExecutor, TabCompleter {
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
 		if (args.length == 0) {
 			sender.sendMessage("/entityonview pass/ignored/cancelled");
 			return true;
-		} 
-		List<ViewTrackPoint> original = ListenerHelper.getVtp();
+		}
+		final List<ViewTrackPoint> original = ListenerHelper.getVtp();
 		List<ViewTrackPoint> vtp;
 		@NotNull
-		TextComponent text = Component.text("TrackPointTrace:");
-		switch(args[0]) {
+		final TextComponent text = Component.text("TrackPointTrace:");
+		switch (args[0]) {
 		case "pass":
 			vtp = find(original, Status.PASS);
 			Component textComponent = text.appendNewline();
-			for(ViewTrackPoint v : vtp) {
-				textComponent.append(Component.text(v.getType())
-						.append(Component.text(v.getX())).appendSpace()
-						.append(Component.text(v.getY())).appendSpace()
-						.append(Component.text(v.getZ())).appendSpace()
+			for (final ViewTrackPoint v : vtp) {
+				textComponent.append(Component.text(v.getType()).append(Component.text(v.getX())).appendSpace()
+						.append(Component.text(v.getY())).appendSpace().append(Component.text(v.getZ())).appendSpace()
 						.append(Component.text(v.getWorld())).appendNewline());
 			}
 			sender.sendMessage(textComponent);
@@ -47,11 +43,9 @@ implements CommandExecutor, TabCompleter
 		case "ignored":
 			vtp = find(original, Status.IGNORED);
 			textComponent = text.appendNewline();
-			for(ViewTrackPoint v : vtp) {
-				textComponent.append(Component.text(v.getType())
-						.append(Component.text(v.getX())).appendSpace()
-						.append(Component.text(v.getY())).appendSpace()
-						.append(Component.text(v.getZ())).appendSpace()
+			for (final ViewTrackPoint v : vtp) {
+				textComponent.append(Component.text(v.getType()).append(Component.text(v.getX())).appendSpace()
+						.append(Component.text(v.getY())).appendSpace().append(Component.text(v.getZ())).appendSpace()
 						.append(Component.text(v.getWorld())).appendNewline());
 			}
 			sender.sendMessage(textComponent);
@@ -59,11 +53,9 @@ implements CommandExecutor, TabCompleter
 		case "cancelled":
 			vtp = find(original, Status.CANCELLED);
 			textComponent = text.appendNewline();
-			for(ViewTrackPoint v : vtp) {
-				textComponent.append(Component.text(v.getType())
-						.append(Component.text(v.getX())).appendSpace()
-						.append(Component.text(v.getY())).appendSpace()
-						.append(Component.text(v.getZ())).appendSpace()
+			for (final ViewTrackPoint v : vtp) {
+				textComponent.append(Component.text(v.getType()).append(Component.text(v.getX())).appendSpace()
+						.append(Component.text(v.getY())).appendSpace().append(Component.text(v.getZ())).appendSpace()
 						.append(Component.text(v.getWorld())).appendNewline());
 			}
 			sender.sendMessage(textComponent);
@@ -73,19 +65,20 @@ implements CommandExecutor, TabCompleter
 		}
 	}
 
-	private List<ViewTrackPoint> find(List<ViewTrackPoint> list, Status status){
+	private List<ViewTrackPoint> find(final List<ViewTrackPoint> list, final Status status) {
 		return list.stream().filter(vtp -> vtp.getStatus().equals(status)).toList();
 	}
 
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		List<String> completions = new ArrayList<>();
+	public List<String> onTabComplete(final CommandSender sender, final Command command, final String alias,
+			final String[] args) {
+		final List<String> completions = new ArrayList<>();
 		if (args.length == 1) {
 			completions.add("pass");
 			completions.add("ignored");
 			completions.add("cancelled");
 			return StringUtil.copyPartialMatches(args[0], completions, new ArrayList<>());
-		} 
+		}
 		return null;
 	}
 }

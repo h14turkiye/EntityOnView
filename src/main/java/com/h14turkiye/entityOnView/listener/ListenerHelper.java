@@ -2,27 +2,23 @@ package com.h14turkiye.entityOnView.listener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.h14turkiye.entityOnView.Config;
 import com.h14turkiye.entityOnView.ListenerUtilities;
 import com.h14turkiye.entityOnView.object.ViewTrackPoint;
 import com.h14turkiye.entityOnView.object.ViewTrackPoint.Status;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class ListenerHelper {
-	private static Cache<Integer, ViewTrackPoint> vtpCache = Caffeine.newBuilder()
-			.expireAfterWrite(1, TimeUnit.MINUTES)
-			.maximumSize(100)
-			.build();
+	private static Cache<Integer, ViewTrackPoint> vtpCache = Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.MINUTES)
+			.maximumSize(100).build();
 
 	private static AtomicInteger keyGenerator = new AtomicInteger(0);
 
@@ -31,8 +27,9 @@ public class ListenerHelper {
 	}
 
 	private static void add(final Status status, final EntityType type, final Location loc) {
-		int key = generateKey();
-		ViewTrackPoint vtp = new ViewTrackPoint(status, type.name(), loc.getX(), loc.getY(), loc.getZ(), loc.getWorld().getName());
+		final int key = generateKey();
+		final ViewTrackPoint vtp = new ViewTrackPoint(status, type.name(), loc.getX(), loc.getY(), loc.getZ(),
+				loc.getWorld().getName());
 
 		vtpCache.put(key, vtp);
 	}
@@ -53,9 +50,8 @@ public class ListenerHelper {
 		add(Status.IGNORED, type, location);
 		return false;
 	}
-	
-	public static List<ViewTrackPoint> getVtp() {
-        return new ArrayList<>(vtpCache.asMap().values());
-    }
-}
 
+	public static List<ViewTrackPoint> getVtp() {
+		return new ArrayList<>(vtpCache.asMap().values());
+	}
+}

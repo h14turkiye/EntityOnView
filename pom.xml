@@ -29,7 +29,6 @@
 
 
   <dependencies>
-	  
     <dependency>
     <groupId>com.github.ben-manes.caffeine</groupId>
     <artifactId>caffeine</artifactId>
@@ -45,10 +44,47 @@
     <artifactId>folia-api</artifactId>
     <version>1.20.1-R0.1-SNAPSHOT</version>
     <scope>provided</scope>
-</dependency>
-  </dependencies>
+	</dependency>
+ </dependencies>
 
   <build>
+	  <plugins>
+		  <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.4.1</version>
+            <executions>
+               <execution>
+                  <id>shade</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>shade</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <artifactSet>
+                  <includes>
+					  <include>org.checkerframework:checker-qual</include>
+					  <include>com.google.errorprone:error_prone_annotations</include>
+					  <include>net.kyori:adventure-key</include>
+					  <include>net.kyori:examination-api</include>
+					  <include>net.kyori:examination-string</include>
+					  <include>org.jetbrains:annotations</include>
+                     <include>com.github.ben-manes.caffeine:caffeine</include>
+                     <include>net.kyori:adventure-api</include>
+                  </includes>
+                  <excludes></excludes>
+               </artifactSet>
+               <relocations>
+                  <!--<relocation>
+                     <pattern>com.mongodb</pattern>
+                     <shadedPattern>com.oyunzor.library.mongodb</shadedPattern>
+                  </relocation-->
+               </relocations>
+            </configuration>
+         </plugin>
+	  </plugins>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->

@@ -8,26 +8,27 @@ public class ViewTrackPoint {
 	private final Status status;
 	private final String world;
 
-	public ViewTrackPoint(final Status status, final String type, final double x, final double y, final double z, final String string) {
+	public ViewTrackPoint(final Status status, final String type, final double x, final double y, final double z,
+			final String string) {
 		this.status = status;
 		this.type = type;
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.world = string;
+		world = string;
 	}
-	
+
 	public Status getStatus() {
 		return status;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
 
 	public double getX() {
 		return x;
-	} 
+	}
 
 	public double getY() {
 		return y;
@@ -42,8 +43,6 @@ public class ViewTrackPoint {
 	}
 
 	public enum Status {
-		PASS,
-		CANCELLED,
-		IGNORED
+		PASS, CANCELLED, IGNORED
 	}
 }
