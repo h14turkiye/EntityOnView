@@ -6,7 +6,7 @@
 
   <groupId>com.h14turkiye</groupId>
   <artifactId>EntityOnView</artifactId>
-  <version>0.1.2-SNAPSHOT</version>
+  <version>0.1.3-SNAPSHOT</version>
 
   <name>EntityOnView</name>
 
@@ -76,12 +76,6 @@
                   </includes>
                   <excludes></excludes>
                </artifactSet>
-               <relocations>
-                  <!--<relocation>
-                     <pattern>com.mongodb</pattern>
-                     <shadedPattern>com.oyunzor.library.mongodb</shadedPattern>
-                  </relocation-->
-               </relocations>
             </configuration>
          </plugin>
 	  </plugins>

@@ -34,9 +34,7 @@ public class EOVCommand implements CommandExecutor, TabCompleter {
 			vtp = find(original, Status.PASS);
 			Component textComponent = text.appendNewline();
 			for (final ViewTrackPoint v : vtp) {
-				textComponent.append(Component.text(v.getType()).append(Component.text(v.getX())).appendSpace()
-						.append(Component.text(v.getY())).appendSpace().append(Component.text(v.getZ())).appendSpace()
-						.append(Component.text(v.getWorld())).appendNewline());
+				textComponent.append(trace(v));
 			}
 			sender.sendMessage(textComponent);
 			return true;
@@ -44,9 +42,7 @@ public class EOVCommand implements CommandExecutor, TabCompleter {
 			vtp = find(original, Status.IGNORED);
 			textComponent = text.appendNewline();
 			for (final ViewTrackPoint v : vtp) {
-				textComponent.append(Component.text(v.getType()).append(Component.text(v.getX())).appendSpace()
-						.append(Component.text(v.getY())).appendSpace().append(Component.text(v.getZ())).appendSpace()
-						.append(Component.text(v.getWorld())).appendNewline());
+				textComponent.append(trace(v));
 			}
 			sender.sendMessage(textComponent);
 			return true;
@@ -54,15 +50,19 @@ public class EOVCommand implements CommandExecutor, TabCompleter {
 			vtp = find(original, Status.CANCELLED);
 			textComponent = text.appendNewline();
 			for (final ViewTrackPoint v : vtp) {
-				textComponent.append(Component.text(v.getType()).append(Component.text(v.getX())).appendSpace()
-						.append(Component.text(v.getY())).appendSpace().append(Component.text(v.getZ())).appendSpace()
-						.append(Component.text(v.getWorld())).appendNewline());
+				textComponent.append(trace(v));
 			}
 			sender.sendMessage(textComponent);
 			return true;
 		default:
 			return false;
 		}
+	}
+	
+	private Component trace(ViewTrackPoint v) {
+		return Component.text(v.getType()).appendSpace().append(Component.text(v.getX())).appendSpace()
+				.append(Component.text(v.getY())).appendSpace().append(Component.text(v.getZ())).appendSpace()
+				.append(Component.text(v.getWorld())).appendNewline();
 	}
 
 	private List<ViewTrackPoint> find(final List<ViewTrackPoint> list, final Status status) {
