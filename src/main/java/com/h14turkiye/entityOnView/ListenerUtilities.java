@@ -1,7 +1,6 @@
 package com.h14turkiye.entityOnView;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -51,10 +50,10 @@ public class ListenerUtilities {
 				return player; // Return immediately if within 28 blocks
 			}
 		}
-		playersInRange = new LinkedHashSet<>(
-				playersInRange.stream().filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared)
-						.sorted((o1, o2) -> Double.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)))
-						.limit(traceClosestPlayerLimit).toList());
+		playersInRange = new LinkedHashSet<>(playersInRange.stream()
+				.filter(p -> p.getLocation().distanceSquared(loc) < maxDistanceSquared).sorted((o1, o2) -> Double
+						.compare(o1.getLocation().distanceSquared(loc), o2.getLocation().distanceSquared(loc)))
+				.limit(traceClosestPlayerLimit).toList());
 
 		final AtomicReference<Player> closestPlayer = new AtomicReference<>(null);
 

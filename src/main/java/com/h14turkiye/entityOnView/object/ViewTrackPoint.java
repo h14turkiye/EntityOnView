@@ -43,6 +43,19 @@ public class ViewTrackPoint {
 	}
 
 	public enum Status {
-		PASS, CANCELLED, IGNORED
+		PASS("Pass"), CANCELLED("Cancelled"), IGNORED("Ignored");
+
+		private String string;
+
+		Status(String string) {
+			this.string = string;
+			// TODO Auto-generated constructor stub
+		}
+		
+		@Override
+		public String toString(){
+			return string;
+		}
+		
 	}
 }

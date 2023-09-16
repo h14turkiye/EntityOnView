@@ -9,3 +9,4 @@ commands:
   entityonview:
     usage: /<command>
     description: Allows trackin
+    aliases: eov

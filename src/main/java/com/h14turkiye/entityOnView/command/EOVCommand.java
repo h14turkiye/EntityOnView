@@ -8,7 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
-import org.jetbrains.annotations.NotNull;
 
 import com.h14turkiye.entityOnView.listener.ListenerHelper;
 import com.h14turkiye.entityOnView.object.ViewTrackPoint;
@@ -26,47 +25,38 @@ public class EOVCommand implements CommandExecutor, TabCompleter {
 			return true;
 		}
 		final List<ViewTrackPoint> original = ListenerHelper.getVtp();
-		List<ViewTrackPoint> vtp;
-		@NotNull
-		final TextComponent text = Component.text("TrackPointTrace:");
 		switch (args[0]) {
 		case "pass":
-			vtp = find(original, Status.PASS);
-			Component textComponent = text.appendNewline();
-			for (final ViewTrackPoint v : vtp) {
-				textComponent.append(trace(v));
-			}
-			sender.sendMessage(textComponent);
+			sender.sendMessage(combine(find(original, Status.PASS)));
 			return true;
 		case "ignored":
-			vtp = find(original, Status.IGNORED);
-			textComponent = text.appendNewline();
-			for (final ViewTrackPoint v : vtp) {
-				textComponent.append(trace(v));
-			}
-			sender.sendMessage(textComponent);
+			sender.sendMessage(combine(find(original, Status.IGNORED)));
 			return true;
 		case "cancelled":
-			vtp = find(original, Status.CANCELLED);
-			textComponent = text.appendNewline();
-			for (final ViewTrackPoint v : vtp) {
-				textComponent.append(trace(v));
-			}
-			sender.sendMessage(textComponent);
+			sender.sendMessage(combine(find(original, Status.CANCELLED)));
 			return true;
 		default:
 			return false;
 		}
 	}
 	
-	private Component trace(ViewTrackPoint v) {
+	private Component combine(List<ViewTrackPoint> vtp) {
+		final TextComponent text = Component.text("Showing TrackPointTrace:");
+		Component textComponent = text.appendNewline();
+		for (final ViewTrackPoint v : vtp) {
+			textComponent = textComponent.append(trace(v));
+		}
+		return textComponent.appendNewline();
+	}
+
+	private Component trace(final ViewTrackPoint v) {
 		return Component.text(v.getType()).appendSpace().append(Component.text(v.getX())).appendSpace()
 				.append(Component.text(v.getY())).appendSpace().append(Component.text(v.getZ())).appendSpace()
 				.append(Component.text(v.getWorld())).appendNewline();
 	}
 
 	private List<ViewTrackPoint> find(final List<ViewTrackPoint> list, final Status status) {
-		return list.stream().filter(vtp -> vtp.getStatus().equals(status)).toList();
+		return list.stream().filter(v -> v.getStatus().toString().equalsIgnoreCase(status.toString())).toList();
 	}
 
 	@Override
