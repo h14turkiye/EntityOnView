@@ -10,3 +10,4 @@ commands:
     usage: /<command>
     description: Allows trackin
     aliases: eov
+    permission: entityonview.use
